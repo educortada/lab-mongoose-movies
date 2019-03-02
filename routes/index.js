@@ -72,7 +72,7 @@ router.get('/celebrities/:id/edit', async (req, res, next) => {
   }
 });
 
-// Send the data from the edit form to update and save the celebrity from the database
+// Send the data from the edit form to update and save the celebrity from the database (POST)
 router.post('/celebrities/:id', async (req, res, next) => {
   const { id } = req.params;
   const { name, occupation, catchPhrase } = req.body;
@@ -133,6 +133,33 @@ router.post('/movies/:id/delete', async (req, res, next) => {
   const { id } = req.params;
   try {
     await Movie.findByIdAndDelete(id);
+    res.redirect('/movies');
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Form to edit a movie (GET)
+router.get('/movies/:id/edit', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const movie = await Movie.findById(id);
+    res.render('movies/edit', movie);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Send the data from the edit form to update and save the movie from the database (POST)
+router.post('/movies/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const { title, genre, plot } = req.body;
+  // Values from those keys come from the edit form
+  const updatedMovie = { title, genre, plot };
+  // Why _id = undefined?¿
+  try {
+    // Update movie to DB
+    await Movie.findByIdAndUpdate(id, updatedMovie);
     res.redirect('/movies');
   } catch (error) {
     next(error);
