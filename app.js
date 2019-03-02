@@ -4,7 +4,10 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
 const mongoose = require('mongoose');
+// const celebrities = require('./bin/seeds');
+// const Celebrity = require('./models/Celebrity');
 
 const indexRouter = require('./routes/index');
 
@@ -15,6 +18,13 @@ mongoose.connect('mongodb://localhost/movies', {
   useNewUrlParser: true,
   reconnectTries: Number.MAX_VALUE
 });
+
+// Celebrity.insertMany(celebrities)
+//   .then(result => {
+//     console.log(result);
+//     mongoose.connection.close();
+//   })
+//   .catch(err => console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
