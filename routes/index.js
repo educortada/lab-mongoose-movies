@@ -20,3 +20,14 @@ router.get('/celebrities', async (req, res, next) => {
     next(error);
   }
 });
+
+// Detail
+router.get('/celebrities/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const celebritie = await Celebrity.findById(id);
+    res.render('celebrities/show', celebritie);
+  } catch (error) {
+    next(error);
+  }
+});
