@@ -98,6 +98,25 @@ router.get('/movies', async (req, res, next) => {
   }
 });
 
+// Form to add new movie (GET)
+router.get('/movies/new', (req, res, next) => {
+  res.render('movies/new');
+});
+
+// Send the data from the form to create the movie and save to the database (POST)
+router.post('/movies', async (req, res, next) => {
+  const { title, genre, plot } = req.body;
+  // Values from those keys come from the new form
+  const newMovie = { title, genre, plot };
+  try {
+    // Save newCelebrity to DB
+    await Movie.create(newMovie);
+    res.redirect('/movies');
+  } catch (error) {
+    res.render('movies/new');
+  }
+});
+
 // Movie detail
 router.get('/movies/:id', async (req, res, next) => {
   const { id } = req.params;
