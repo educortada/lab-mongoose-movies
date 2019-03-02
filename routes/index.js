@@ -29,7 +29,7 @@ router.get('/celebrities/new', (req, res, next) => {
 // Send the data from the form to create the celebrity and save to the database (POST)
 router.post('/celebrities', async (req, res, next) => {
   const { name, occupation, catchPhrase } = req.body;
-  // Values from those keys come from the form
+  // Values from those keys come from the new form
   const newCelebrity = { name, occupation, catchPhrase };
   try {
     // Save newCelebrity to DB
@@ -57,6 +57,33 @@ router.post('/celebrities/:id/delete', async (req, res, next) => {
   const { id } = req.params;
   try {
     await Celebrity.findByIdAndDelete(id);
+    res.redirect('/celebrities');
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Form to edit a celebrity (GET)
+router.get('/celebrities/:id/edit', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const celebritie = await Celebrity.findById(id);
+    res.render('celebrities/edit', celebritie);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Send the data from the edit form to update and save the celebrity from the database
+router.post('/celebrities/:id', async (req, res, next) => {
+  const { id } = req.params;
+  const { name, occupation, catchPhrase } = req.body;
+  // Values from those keys come from the edit form
+  const updatedCelebrity = { name, occupation, catchPhrase };
+
+  try {
+    // Update celebrity to DB
+    await Celebrity.findByIdAndUpdate(id, updatedCelebrity);
     res.redirect('/celebrities');
   } catch (error) {
     next(error);
