@@ -80,7 +80,7 @@ router.post('/celebrities/:id', async (req, res, next) => {
   const { name, occupation, catchPhrase } = req.body;
   // Values from those keys come from the edit form
   const updatedCelebrity = { name, occupation, catchPhrase };
-
+  // Why _id = undefined?¿
   try {
     // Update celebrity to DB
     await Celebrity.findByIdAndUpdate(id, updatedCelebrity);

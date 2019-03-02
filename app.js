@@ -8,6 +8,8 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 // const celebrities = require('./bin/seeds');
 // const Celebrity = require('./models/Celebrity');
+// const movies = require('./bin/seeds');
+// const Movie = require('./models/Movie');
 
 const indexRouter = require('./routes/index');
 
@@ -20,6 +22,13 @@ mongoose.connect('mongodb://localhost/movies', {
 });
 
 // Celebrity.insertMany(celebrities)
+//   .then(result => {
+//     console.log(result);
+//     mongoose.connection.close();
+//   })
+//   .catch(err => console.log(err));
+
+// Movie.insertMany(movies)
 //   .then(result => {
 //     console.log(result);
 //     mongoose.connection.close();
