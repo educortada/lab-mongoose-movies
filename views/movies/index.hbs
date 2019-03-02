@@ -5,9 +5,9 @@
   <li>
     <p>{{this.title}}</p>
     <a href="/movies/{{this._id}}">Detail</a>
-    {{!-- <form action="/celebrities/{{this._id}}/delete" method="POST">
+    <form action="/movies/{{this._id}}/delete" method="POST">
       <button type="submit">Delete</button>
-    </form> --}}
+    </form>
   </li>
   {{/each}}
 </ul>

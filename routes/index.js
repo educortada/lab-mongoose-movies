@@ -128,4 +128,15 @@ router.get('/movies/:id', async (req, res, next) => {
   }
 });
 
+// Delete movies
+router.post('/movies/:id/delete', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await Movie.findByIdAndDelete(id);
+    res.redirect('/movies');
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
