@@ -50,3 +50,15 @@ router.get('/celebrities/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+// Delete celebrity
+
+router.post('/celebrities/:id/delete', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await Celebrity.findByIdAndDelete(id);
+    res.redirect('/celebrities');
+  } catch (error) {
+    next(error);
+  }
+});
