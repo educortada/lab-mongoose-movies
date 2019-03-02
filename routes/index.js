@@ -3,13 +3,12 @@
 const express = require('express');
 const router = express.Router();
 const Celebrity = require('../models/Celebrity');
+const Movies = require('../models/Movie');
 
 // Home
 router.get('/', (req, res, next) => {
   res.render('index');
 });
-
-module.exports = router;
 
 // Celebrities
 router.get('/celebrities', async (req, res, next) => {
@@ -89,3 +88,15 @@ router.post('/celebrities/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+// Movies
+router.get('/movies', async (req, res, next) => {
+  try {
+    const moviesArray = await Movies.find();
+    res.render('movies/index', { movies: moviesArray });
+  } catch (error) {
+    next(error);
+  }
+});
+
+module.exports = router;
