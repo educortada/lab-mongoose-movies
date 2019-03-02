@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const Celebrity = require('../models/Celebrity');
-const Movies = require('../models/Movie');
+const Movie = require('../models/Movie');
 
 // Home
 router.get('/', (req, res, next) => {
@@ -39,7 +39,7 @@ router.post('/celebrities', async (req, res, next) => {
   }
 });
 
-// Detail
+// Celebrity detail
 router.get('/celebrities/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -51,7 +51,6 @@ router.get('/celebrities/:id', async (req, res, next) => {
 });
 
 // Delete celebrity
-
 router.post('/celebrities/:id/delete', async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -92,8 +91,19 @@ router.post('/celebrities/:id', async (req, res, next) => {
 // Movies
 router.get('/movies', async (req, res, next) => {
   try {
-    const moviesArray = await Movies.find();
+    const moviesArray = await Movie.find();
     res.render('movies/index', { movies: moviesArray });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Movie detail
+router.get('/movies/:id', async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const movie = await Movie.findById(id);
+    res.render('movies/show', movie);
   } catch (error) {
     next(error);
   }
